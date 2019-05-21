@@ -1,12 +1,11 @@
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
- 
+const icons = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
+                "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb"];
+
 const game = {
-    cardIcons: ["fa fa-diamond","fa fa-diamond","fa fa-paper-plane-o","fa fa-paper-plane-o",
-                "fa fa-anchor","fa fa-anchor","fa fa-bolt","fa fa-bolt","fa fa-cube",
-                "fa fa-leaf","fa fa-leaf","fa fa-bicycle","fa fa-bicycle","fa fa-bomb",
-                "fa fa-bomb","fa fa-cube"],
+    cardIcons: icons.concat(icons),
     createCards() {
       game.refreshGame();
       gameBoard = document.querySelector(".deck");
@@ -52,6 +51,8 @@ const game = {
               else {
                 game.openCards.push(firstCard);
                 game.openCards.push(secondCard);
+                firstCard.classList.add("match");
+                secondCard.classList.add("match");
               }
               game.currentCards.pop();
               game.currentCards.pop();
@@ -77,6 +78,8 @@ const game = {
       game.moves=0;
       let counter = document.querySelector(".moves");
       counter.innerHTML = game.moves;
+      //reset current cards
+      game.currentCards=[];
       //reset timer each new game
       let timer = document.getElementById("timer");
       timer.innerHTML = "0 mins 0 secs";
@@ -149,11 +152,7 @@ function removeStars() {
     let scorePanel = document.querySelector(".stars");
     scorePanel.removeChild(scorePanel.firstElementChild);
   }
-  if(game.moves === 18){
-    let scorePanel = document.querySelector(".stars");
-    scorePanel.removeChild(scorePanel.firstElementChild);
-  }
-  if(game.moves === 22){
+  if(game.moves === 20){
     let scorePanel = document.querySelector(".stars");
     scorePanel.removeChild(scorePanel.firstElementChild);
   }
